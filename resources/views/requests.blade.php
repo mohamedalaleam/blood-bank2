@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('title')
+<title>الطلبات</title>
+@endsection
+
 @section('content')
 
 

@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('title')
+<title>مصرف الدم الليبي</title>
+@endsection
+
 @section('content')
     <!-- ################# Slider Starts Here#######################-->
 
@@ -103,6 +107,14 @@
                      <img src="{{asset('assets/images/gallery/g3.jpg')}}" alt="">
                      <h4 style=" font-size: 18px;"><b></b>{{$donate->name}}</h4>
                      <p style="text-align: right; font-size: 18px;"><b>{{$donate->bloodtype->blood_type}} :: فصيلة الدم</b></p>
+                     @if($donate->bloodtype->giveto->count() > 0)
+                     <p style="text-align: right; font-size: 18px;"><b> 
+                     @foreach($donate->bloodtype->giveto as $blood)
+                        {{$blood->bloodtype->blood_type}}  
+                     @endforeach
+                     :: تعطي الي 
+                    </b></p>
+                    @endif
                      <p style="text-align: right; font-size: 18px;"><b>المدينة :: {{$donate->city}}</b></p>
                      <p style="text-align: right; font-size: 18px;"><b>العنوان :: {{$donate->address}}</b></p>
                      <a style="font-size: 18px;" href="tel:{{$donate->phone}}" class="btn btn-sm btn-danger">اتصال <i class="fas fa-phone"></i></a>
@@ -140,6 +152,14 @@
                    <div class="bkjiu">
                     <img src="{{asset('assets/images/gallery/g9.jpg')}}" alt="">
                     <h4><b style="float: left !important; font-size: 18px;">{{$sample->created_at->diffForHumans()}}</b>{{$sample->bloodtype->blood_type}} :: فصيلة الدم</h4>
+                    @if($sample->bloodtype->giveto->count() > 0)
+                     <p style="text-align: right; font-size: 16px;"><b> 
+                     @foreach($sample->bloodtype->giveto as $blood)
+                        {{$blood->bloodtype->blood_type}}  
+                     @endforeach
+                     :: تعطي الي 
+                    </b></p>
+                    @endif
                     <p style="text-align: right; font-size: 18px;"><b>المدينة :: {{$sample->city}}</b></p>
                     <p style="text-align: right; font-size: 18px;"><b>العنوان :: {{$sample->address}}</b></p>
                     <a class="btn btn-sm btn-danger" href="tel:{{$sample->phone}}" style="font-size: 18px;">اتصال <i class="fas fa-phone"></i></a>

@@ -1,5 +1,9 @@
 @extends('layouts.main')
 
+@section('title')
+<title>المتبرعين</title>
+@endsection
+
 @section('content')
 
 
@@ -53,6 +57,7 @@
                     </form>
             </div>
 
+            
            </div>
 
             <div class="row"  style="text-align: right;">
@@ -64,6 +69,16 @@
                      <img src="{{asset('assets/images/gallery/g3.jpg')}}" alt="">
                      <h4 style=" font-size: 18px;"><b></b>{{$donate->name}}</h4>
                      <p style="text-align: right; font-size: 18px;"><b>{{$donate->bloodtype->blood_type}} :: فصيلة الدم</b></p>
+
+                     @if($donate->bloodtype->giveto->count() > 0)
+                     <p style="text-align: right; font-size: 18px;"><b> 
+                     @foreach($donate->bloodtype->giveto as $blood)
+                        {{$blood->bloodtype->blood_type}}  
+                     @endforeach
+                     :: تعطي الي 
+                    </b></p>
+                    @endif
+
                      <p style="text-align: right; font-size: 18px;"><b>المدينة :: {{$donate->city}}</b></p>
                      <p style="text-align: right; font-size: 18px;"><b>العنوان :: {{$donate->address}}</b></p>
                      <a style="font-size: 18px;" href="tel:{{$donate->phone}}" class="btn btn-sm btn-danger">اتصال <i class="fas fa-phone"></i></a>
