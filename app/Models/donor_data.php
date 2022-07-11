@@ -13,4 +13,8 @@ class donor_data extends Model
         return $this->hasOne(blood_type::class, 'id', 'blood_type_id');
     }
 
+    public function reviews(){
+        return $this->hasMany(reviews::class, 'donate_id', 'id');
+    }
+
 }

@@ -57,28 +57,77 @@
                                 </button>
                                 <div class="collapse navbar-collapse" id="navbarNav">
                                     <ul class="navbar-nav">
-                                        <li class="nav-item">
-                                            <a class="nav-link" style="font-size: 20px;" href="{{route('home1')}}">الرئيسية
+                                    @if($page == "home")
+                                        <li class="nav-item active">
+                                    @else
+                                    <li class="nav-item">
+                                    @endif
+                                            <a class="nav-link" style="font-size: 20px;" href="{{route('home')}}">الرئيسية
                                             </a>
                                         </li>
 
-                                        <li class="nav-item">
-                                            <a class="nav-link" style="font-size: 20px;" href="{{route('donates')}}">المتبرعين</a>
+                                        @if($page == "donates")
+                                        <li class="nav-item active">
+                                    @else
+                                    <li class="nav-item">
+                                    @endif
+                                                                                <a class="nav-link" style="font-size: 20px;" href="{{route('donatesAdmin')}}">المتبرعين</a>
                                         </li>
-                                         <li class="nav-item">
-                                            <a class="nav-link" style="font-size: 20px;" href="{{route('samples')}}">العينات الجاهزة</a>
+
+                                    @if($page == "samples")
+                                        <li class="nav-item active">
+                                    @else
+                                    <li class="nav-item">
+                                    @endif                                            <a class="nav-link" style="font-size: 20px;" href="{{route('samplesAdmin')}}">العينات الجاهزة</a>
                                         </li>
-                                        <li class="nav-item">
-                                            <a class="nav-link" style="font-size: 20px;" href="{{route('requests')}}">الطلبات</a>
+                                        @if($page == "requests")
+                                        <li class="nav-item active">
+                                    @else
+                                    <li class="nav-item">
+                                    @endif                                            <a class="nav-link" style="font-size: 20px;" href="{{route('requestsAdmin')}}">الطلبات</a>
                                         </li>
+
+
+                                        @if($page == "contact")
+                                        <li class="nav-item active">
+                                    @else
+                                    <li class="nav-item">
+                                    @endif                                            <a class="nav-link" style="font-size: 20px;" href="{{route('contactAdmin')}}">التواصل</a>
+                                        </li>
+
 
                                         @auth
 
-                                        <li class="nav-item">
-                                            <a class="nav-link" style="font-size: 20px;" href="{{ route('logout') }}"
+
+                                    <li class="nav-item">
+                                        <a class="nav-link dropdown-toggle" style="font-size: 20px;" href="#" id="dropdownMenuButton" data-toggle="dropdown">{{auth()->user()->name}}</a>
+
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                        <a class="dropdown-item" style="font-size: 20px;" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">تسجيل الخروج</a>
-                                        </li>
+                                        </div>
+
+
+                                    </li>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
@@ -124,6 +173,8 @@
     
 </body>
 
+@yield('js')
+
     <script src="assets/js/jquery-3.2.1.min.js"></script>
     <script src="assets/js/popper.mins.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
@@ -131,7 +182,14 @@
     <script src="assets/plugins/scroll-fixed/jquery-scrolltofixed-min.js"></script>
     <script src="assets/js/script.js"></script>
 
-    @yield('js')
-
+    <script>
+    function onlyNumberKey(evt) {
+        // Only ASCII character in that range allowed
+        var ASCIICode = (evt.which) ? evt.which : evt.keyCode
+        if (ASCIICode > 31 && (ASCIICode < 48 || ASCIICode > 57))
+            return false;
+        return true;
+    }
+    </script>
 
 </html>

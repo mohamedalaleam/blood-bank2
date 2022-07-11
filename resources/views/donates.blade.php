@@ -2,6 +2,28 @@
 
 @section('title')
 <title>المتبرعين</title>
+
+<style>
+
+#but button:hover::before {
+  content: attr(for);
+  font-family: Roboto, -apple-system, sans-serif;
+  text-transform: capitalize;
+  font-size: 20px;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  opacity: 0.75;
+  background-color: #323232;
+  color: #fff;  
+  padding: 4px;
+  border-radius: 3px;
+  display: block;
+}
+
+</style>
+
 @endsection
 
 @section('content')
@@ -81,6 +103,49 @@
 
                      <p style="text-align: right; font-size: 18px;"><b>المدينة :: {{$donate->city}}</b></p>
                      <p style="text-align: right; font-size: 18px;"><b>العنوان :: {{$donate->address}}</b></p>
+
+
+
+                     @if($donate->reviews()->count() > 0)
+
+<div class="container center pb-2" style="float: center !important;">
+@if($donate->reviews()->avg('review') >= 0)
+    <button style="font-family: 'Amiri'; text-align: center; font-size: 28px; outline:none; color: gold; background: none; border: none;"><i class="fas fa-star"></i></button>
+@else
+    <button style="font-family: 'Amiri'; text-align: center; font-size: 28px; color: grey;outline:none; background: none; border: none;"><i class="fas fa-star"></i></button>
+@endif
+
+@if($donate->reviews()->avg('review') >= 25)
+    <button style="font-family: 'Amiri'; text-align: center; font-size: 28px; color: gold;outline:none; background: none; border: none;"><i class="fas fa-star"></i></button>
+@else
+    <button style="font-family: 'Amiri'; text-align: center; font-size: 28px; color: grey;outline:none; background: none; border: none;"><i class="fas fa-star"></i></button>
+@endif
+
+@if($donate->reviews()->avg('review') >= 50)
+    <button style="font-family: 'Amiri'; text-align: center; font-size: 28px; color: gold;outline:none; background: none; border: none;"><i class="fas fa-star"></i></button>
+@else
+    <button style="font-family: 'Amiri'; text-align: center; font-size: 28px; color: grey;outline:none; background: none; border: none;"><i class="fas fa-star"></i></button>
+@endif
+
+@if($donate->reviews()->avg('review') >= 75)
+    <button style="font-family: 'Amiri'; text-align: center; font-size: 28px; color: gold;outline:none; background: none; border: none;"><i class="fas fa-star"></i></button>
+@else
+    <button style="font-family: 'Amiri'; text-align: center; font-size: 28px; color: grey;outline:none; background: none; border: none;"><i class="fas fa-star"></i></button>
+@endif
+
+@if($donate->reviews()->avg('review') >= 100)
+    <button style="font-family: 'Amiri'; text-align: center; font-size: 28px; color: gold;outline:none; background: none; border: none;"><i class="fas fa-star"></i></button>
+@else
+    <button style="font-family: 'Amiri'; text-align: center; font-size: 28px; color: grey;outline:none; background: none; border: none;"><i class="fas fa-star"></i></button>
+@endif
+
+
+</div> 
+@endif
+
+
+                     <a style="font-size: 18px; float: left;" data-toggle="modal" href="#donate_review" onclick="getid({{$donate->id}})" class="btn btn-sm btn-danger">تقييم <i class="fas fa-star"></i></a>
+
                      <a style="font-size: 18px;" href="tel:{{$donate->phone}}" class="btn btn-sm btn-danger">اتصال <i class="fas fa-phone"></i></a>
                      </div>
                  </div>
@@ -116,7 +181,7 @@
 																<div class="col-12 col-sm-6">
 																	<div class="form-group" style="text-align: right; font-family: 'Amiri';">
 																		<label >الاسم</label>
-																		<input style="direction: rtl;" type="text" name="name" class="form-control" required oninvalid="this.setCustomValidity('الرجاء ادخال اسم المتجر')" oninput="this.setCustomValidity('')"> 
+																		<input style="direction: rtl;" type="text" name="name" value="{{$Cookie['name']}}" class="form-control" required oninvalid="this.setCustomValidity('الرجاء ادخال اسم المتجر')" oninput="this.setCustomValidity('')"> 
 																		</div>
 																</div>
 																<div class="col-12 col-sm-6">
@@ -138,7 +203,7 @@
 																<div class="col-12 col-sm-6">
 																	<div class="form-group" style="text-align: right; font-family: 'Amiri';">
 																		<label>المدينة</label>
-																		<input style="direction: rtl;" type="text" name="city" class="form-control" required oninvalid="this.setCustomValidity('الرجاء ادخال المدينة')" oninput="this.setCustomValidity('')"> 
+																		<input style="direction: rtl;" type="text" name="city" value="{{$Cookie['city']}}" class="form-control" required oninvalid="this.setCustomValidity('الرجاء ادخال المدينة')" oninput="this.setCustomValidity('')"> 
 																		
 																		</div>
 																</div>
@@ -146,19 +211,27 @@
 																<div class="col-12 col-sm-6">
 																	<div class="form-group" style="text-align: right; font-family: 'Amiri';">
 																		<label>العنوان</label>
-																		<input style="direction: rtl;" type="text" name="address" class="form-control" required oninvalid="this.setCustomValidity('الرجاء ادخال العنوان')" oninput="this.setCustomValidity('')"> 
+																		<input style="direction: rtl;" type="text" name="address" value="{{$Cookie['address']}}" class="form-control" required oninvalid="this.setCustomValidity('الرجاء ادخال العنوان')" oninput="this.setCustomValidity('')"> 
 																		
 																		</div>
 																</div>
 
-																<div class="col-12 col-sm-12">
+																<div class="col-12 col-sm-6">
 																	<div class="form-group" style="text-align: right; font-family: 'Amiri';">
 																		<label>رقم الهاتف</label>
-																		<input style="direction: rtl;" onkeypress="return onlyNumberKey(event)" minlength="10" type="text" name="phone" class="form-control" required oninvalid="this.setCustomValidity('الرجاء ادخال رقم الهاتف')" oninput="this.setCustomValidity('')"> 
+																		<input style="direction: rtl;" onkeypress="return onlyNumberKey(event)" value="{{$Cookie['phone']}}" minlength="10" type="text" name="phone" class="form-control" required oninvalid="this.setCustomValidity('الرجاء ادخال رقم الهاتف')" oninput="this.setCustomValidity('')"> 
 																		
 																		</div>
 																</div>
                                                             
+																<div class="col-12 col-sm-6">
+																	<div class="form-group" style="text-align: right; font-family: 'Amiri';">
+																		<label>رقم البطاقة الشخصية</label>
+																		<input style="direction: rtl;" onkeypress="return onlyNumberKey(event)" minlength="6" value="{{$Cookie['identity']}}" type="text" name="identity" class="form-control" required oninvalid="this.setCustomValidity('الرجاء ادخال رقم البطاقة الشخصية')" oninput="this.setCustomValidity('')"> 
+																		
+																		</div>
+																</div>
+
 
 															</div>
 															<button type="submit" style="font-family: 'Amiri';" class="btn btn-primary btn-block">حفظ بيانات المتبرع</button>
@@ -171,5 +244,62 @@
 
 
 
+										<div class="modal fade" id="donate_review" aria-hidden="true" role="dialog">
+											<div class="modal-dialog modal-dialog-centered" role="document">
+												<div class="modal-content">
+													<div class="modal-header" >
+														<h5 class="modal-title" style="font-family: 'Amiri'; font-size: 20px;">تقييم المتبرع</h5>
+														<button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+													</div>
+													<div class="modal-body">
+														<form action="{{route('review_donate')}}" method="post" id="reviewform">
+														@csrf
+															<div class="row form-row"  style="float: center !important;">
+
+                                                            <input id="id" type="hidden" name="id">
+                                                            <input id="review" type="hidden" name="review">
+
+																<!-- <div class="col-12 col-sm-6">
+																	<div class="form-group" style="text-align: right;font-family: 'Amiri';">
+																		<label>الفصيلة</label>
+
+																		</div>
+																</div> -->
+
+
+                                                                <div id="but" class="container center " style="float: center !important;">
+                                                                <button for="المعاملة سيئة" style="font-family: 'Amiri'; outline:none; padding: 0px 10px; font-size: 28px; text-decoration:none; color: grey; background: none; border: none;" type="submit" onclick="sub(0)" onMouseOver="this.style.color='gold'" onMouseOut="this.style.color='grey'"><i class="fas fa-star"></i></button>
+                                                                <button for="المعاملة مقبولة" style="font-family: 'Amiri';outline:none; padding: 0px 10px; font-size: 28px; text-decoration:none; color: grey; background: none; border: none;" type="submit" onclick="sub(25)" onMouseOver="this.style.color='gold'" onMouseOut="this.style.color='grey'"><i class="fas fa-star"></i></button>
+                                                                <button for="المعاملة جيدة" style="font-family: 'Amiri';outline:none; padding: 0px 10px; font-size: 28px; text-decoration:none; color: grey; background: none; border: none;" type="submit" onclick="sub(50)" onMouseOver="this.style.color='gold'" onMouseOut="this.style.color='grey'"><i class="fas fa-star"></i></button>
+                                                                <button for="المعاملة جيدة جدآ" style="font-family: 'Amiri';outline:none; padding: 0px 10px; font-size: 28px; text-decoration:none; color: grey;  background: none; border: none;" type="submit" onclick="sub(75)" onMouseOver="this.style.color='gold'" onMouseOut="this.style.color='grey'"><i class="fas fa-star"></i></button>
+                                                                <button for="المعاملة ممتازة" style="font-family: 'Amiri';outline:none; padding: 0px 10px; font-size: 28px; text-decoration:none; color: grey; background: none; border: none;" type="submit" onclick="sub(100)" onMouseOver="this.style.color='gold'" onMouseOut="this.style.color='grey'"><i class="fas fa-star"></i></button>
+                                                            </div> 
+
+															</div>
+
+														</form>
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+
 
                                         @endsection
+
+                                        @section('js')
+
+<script>
+
+function getid(id){
+        document.getElementById("id").value = id;
+    }
+
+    function sub(rev){
+        document.getElementById("review").value = rev;
+        document.getElementById("reviewform").submit(); 
+    }
+</script>
+
+@endsection

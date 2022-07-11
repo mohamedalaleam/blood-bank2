@@ -26,6 +26,53 @@
            </div>
 
             
+           <div class="row" style="float: center !important;">
+
+          
+  <div class="card text-center col-3 p-2">
+    <a href="{{route('donatesAdmin')}}">
+    <div class="card-body">
+      <h5 class="card-title">عدد المتبرعين</h5>
+      <p class="card-text" style="font-size: 25px; text-align: center; color: red;">{{$donates}}</p>
+      <p class="card-text" style="font-size: 18px; text-align: center;"><small class="text-muted">إحصائية خاصة بعدد المتبرعين</small></p>
+    </div>
+</a>
+  </div>
+
+  <div class="card text-center col-3 p-2">
+  <a href="{{route('samplesAdmin')}}">
+    <div class="card-body">
+      <h5 class="card-title">عدد العينات الجاهزة</h5>
+      <p class="card-text" style="font-size: 25px; text-align: center; color: red;">{{$samples}}</p>
+      <p class="card-text"  style="font-size: 18px; text-align: center;"><small class="text-muted">إحصائية خاصة بعدد العينات الجاهزة</small></p>
+    </div></a>
+  </div>
+
+
+  <div class="card text-center col-3 p-2">
+  <a href="{{route('requestsAdmin')}}">
+    <div class="card-body">
+      <h5 class="card-title">عدد الطلبات</h5>
+      <p class="card-text" style="font-size: 25px; text-align: center; color: red;">{{$requests}}</p>
+      <p class="card-text" style="font-size: 18px; text-align: center;"><small class="text-muted">إحصائية خاصة بعدد الطلبات</small></p>
+    </div></a>
+  </div>
+
+
+  <div class="card text-center col-3 p-2">
+  <a href="{{route('contactAdmin')}}">
+    <div class="card-body">
+      <h5 class="card-title">عدد التواصل</h5>
+      <p class="card-text" style="font-size: 25px; text-align: center; color: red;">{{$contact}}</p>
+      <p class="card-text" style="font-size: 18px; text-align: center;"><small class="text-muted">إحصائية خاصة بعدد رسائل التواصل</small></p>
+    </div></a>
+  </div>
+
+
+
+</div>
+
+
          </div>
      </section>
      
