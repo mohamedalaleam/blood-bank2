@@ -7,6 +7,7 @@ use App\Models\contact;
 use App\Models\donor_data;
 use App\Models\sample;
 use App\Models\reviews;
+use App\Models\donate_id;
 use Cookie;
 
 class HomeController extends Controller
@@ -105,7 +106,21 @@ class HomeController extends Controller
 
     public function adminDeleteSamples($id)
     {
-        sample::find($id)->delete();
+
+        try{
+            \DB::beginTransaction();
+    
+            sample::find($id)->delete();
+            donate_id::where('donate_id',$id)->delete();
+    
+             \DB::commit();
+          }
+          catch(\Exception $e){
+            \DB::rollback();
+            throw $e;
+            return redirect()->back()->with('success','للاسف لقد حدث خطآ الرجاء إعادة المحاولة');
+          }
+
         return redirect()->route('samplesAdmin')->with('success','تم مسح العينة الجاهزة بنجاح');
     }
 
@@ -323,6 +338,10 @@ public function savesample()
         $sample->quantity = request('quantity');
         $sample->requirment = 0;
         $sample->save();
+
+        $S_id = new donate_id;
+        $S_id->donate_id = $sample->id;
+        $S_id->save();
 
          \DB::commit();
       }
