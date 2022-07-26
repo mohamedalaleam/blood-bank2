@@ -181,7 +181,11 @@
 																<div class="col-12 col-sm-6">
 																	<div class="form-group" style="text-align: right; font-family: 'Amiri';">
 																		<label >الاسم</label>
+                                                                        @if($Cookie)
 																		<input style="direction: rtl;" type="text" name="name" value="{{$Cookie['name']}}" class="form-control" required oninvalid="this.setCustomValidity('الرجاء ادخال اسم المتجر')" oninput="this.setCustomValidity('')"> 
+                                                                        @else
+																		<input style="direction: rtl;" type="text" name="name" class="form-control" required oninvalid="this.setCustomValidity('الرجاء ادخال اسم المتجر')" oninput="this.setCustomValidity('')"> 
+                                                                        @endif
 																		</div>
 																</div>
 																<div class="col-12 col-sm-6">
@@ -203,7 +207,11 @@
 																<div class="col-12 col-sm-6">
 																	<div class="form-group" style="text-align: right; font-family: 'Amiri';">
 																		<label>المدينة</label>
+                                                                        @if($Cookie)
 																		<input style="direction: rtl;" type="text" name="city" value="{{$Cookie['city']}}" class="form-control" required oninvalid="this.setCustomValidity('الرجاء ادخال المدينة')" oninput="this.setCustomValidity('')"> 
+                                                                        @else
+																		<input style="direction: rtl;" type="text" name="city" class="form-control" required oninvalid="this.setCustomValidity('الرجاء ادخال المدينة')" oninput="this.setCustomValidity('')"> 
+                                                                        @endif
 																		
 																		</div>
 																</div>
@@ -211,7 +219,11 @@
 																<div class="col-12 col-sm-6">
 																	<div class="form-group" style="text-align: right; font-family: 'Amiri';">
 																		<label>العنوان</label>
+                                                                        @if($Cookie)
 																		<input style="direction: rtl;" type="text" name="address" value="{{$Cookie['address']}}" class="form-control" required oninvalid="this.setCustomValidity('الرجاء ادخال العنوان')" oninput="this.setCustomValidity('')"> 
+                                                                        @else
+																		<input style="direction: rtl;" type="text" name="address" class="form-control" required oninvalid="this.setCustomValidity('الرجاء ادخال العنوان')" oninput="this.setCustomValidity('')"> 
+                                                                        @endif
 																		
 																		</div>
 																</div>
@@ -219,7 +231,11 @@
 																<div class="col-12 col-sm-6">
 																	<div class="form-group" style="text-align: right; font-family: 'Amiri';">
 																		<label>رقم الهاتف</label>
+                                                                        @if($Cookie)
 																		<input style="direction: rtl;" onkeypress="return onlyNumberKey(event)" value="{{$Cookie['phone']}}" minlength="10" type="text" name="phone" class="form-control" required oninvalid="this.setCustomValidity('الرجاء ادخال رقم الهاتف')" oninput="this.setCustomValidity('')"> 
+                                                                        @else
+																		<input style="direction: rtl;" onkeypress="return onlyNumberKey(event)" minlength="10" type="text" name="phone" class="form-control" required oninvalid="this.setCustomValidity('الرجاء ادخال رقم الهاتف')" oninput="this.setCustomValidity('')"> 
+                                                                        @endif
 																		
 																		</div>
 																</div>
@@ -227,7 +243,11 @@
 																<div class="col-12 col-sm-6">
 																	<div class="form-group" style="text-align: right; font-family: 'Amiri';">
 																		<label>رقم البطاقة الشخصية</label>
+                                                                        @if($Cookie)
 																		<input style="direction: rtl;" onkeypress="return onlyNumberKey(event)" minlength="6" value="{{$Cookie['identity']}}" type="text" name="identity" class="form-control" required oninvalid="this.setCustomValidity('الرجاء ادخال رقم البطاقة الشخصية')" oninput="this.setCustomValidity('')"> 
+                                                                        @else
+																		<input style="direction: rtl;" onkeypress="return onlyNumberKey(event)" minlength="6" type="text" name="identity" class="form-control" required oninvalid="this.setCustomValidity('الرجاء ادخال رقم البطاقة الشخصية')" oninput="this.setCustomValidity('')"> 
+                                                                        @endif
 																		
 																		</div>
 																</div>

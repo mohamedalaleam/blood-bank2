@@ -34,7 +34,11 @@ class HomeController extends Controller
         $requests = sample::where('requirment' , 1)->take(4)->get();
         $page = "home";
 
-        $Cookie = Cookie::get();
+        if(Cookie::get('name') !== null){
+            $Cookie = Cookie::get();
+        }else{
+            $Cookie = null;
+        }
 
         return view('welcome', ['donates'=>$donates, 'samples'=>$samples, 'requests'=>$requests, 'page'=>$page, 'Cookie'=>$Cookie]);
     }
@@ -44,8 +48,11 @@ class HomeController extends Controller
     {
         $donates = donor_data::latest()->get();
         $page = "donates";
-        $Cookie = Cookie::get();
-        return view('donates', ['page'=>$page, 'donates'=>$donates, 'Cookie'=>$Cookie]);
+        if(Cookie::get('name') !== null){
+            $Cookie = Cookie::get();
+        }else{
+            $Cookie = null;
+        }        return view('donates', ['page'=>$page, 'donates'=>$donates, 'Cookie'=>$Cookie]);
     }
 
     public function samples()
@@ -305,14 +312,26 @@ public function savesample()
          'quantity.required' => 'يجب ادخال كمية العينات',
      ]);
 
-     $donate = new sample;
-     $donate->city =request('city');
-     $donate->phone = request('phone');
-     $donate->address = request('address');
-     $donate->blood_type_id = request('type');
-     $donate->quantity = request('quantity');
-     $donate->requirment = 0;
-     $donate->save();
+     try{
+        \DB::beginTransaction();
+
+        $sample = new sample;
+        $sample->city = request('city');
+        $sample->phone =request('phone');
+        $sample->address = request('address');
+        $sample->blood_type_id = request('type');
+        $sample->quantity = request('quantity');
+        $sample->requirment = 0;
+        $sample->save();
+
+         \DB::commit();
+      }
+      catch(\Exception $e){
+        \DB::rollback();
+        throw $e;
+        return redirect()->back()->with('success','للاسف لقد حدث خطآ الرجاء إعادة المحاولة');
+      }
+
      return redirect()->back()->with('success','تم تسجيل العينة الجاهزة بنجاح');
 }
 
